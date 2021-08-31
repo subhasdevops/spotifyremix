@@ -1,0 +1,11 @@
+.editorPicks-card {
+  font-size: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+.editorImageAlbum {
+  width: 120px;
+}
