@@ -10,7 +10,7 @@ class Profile extends Component {
   }
 
   fetchProfile = async () => {
-    const token = localStorage.getItem('pa_token', '')
+    const token = localStorage.getItem('pa_token')
     const url = 'https://api.spotify.com/v1/me'
     const options = {
       method: 'GET',
@@ -29,6 +29,12 @@ class Profile extends Component {
       }
       this.setState({profileDetails: userData})
     }
+  }
+
+  clickLogout = () => {
+    const {history} = this.props
+    localStorage.removeItem('pa_token')
+    history.replace('/login')
   }
 
   render() {
@@ -50,7 +56,11 @@ class Profile extends Component {
             </div>
           </div>
           <div>
-            <button type="button" className="logoutButton-style">
+            <button
+              type="button"
+              className="logoutButton-style"
+              onClick={this.clickLogout}
+            >
               Logout
             </button>
           </div>

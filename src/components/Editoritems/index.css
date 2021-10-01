@@ -9,3 +9,20 @@
 .editorImageAlbum {
   width: 120px;
 }
+.edit-col {
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 576px) {
+  .editorPicks-card {
+    width: 60px;
+
+    margin: 5px;
+    align-items: center;
+  }
+
+  .editorImageAlbum {
+    width: 60px;
+  }
+}

@@ -6,7 +6,7 @@ const Editoritems = props => {
   const {name, id, images} = editorItem
 
   return (
-    <Link to={`/editor/${id}`}>
+    <Link className="edit-col" to={`/editor/${id}`}>
       <div className="editorPicks-card">
         <img className="editorImageAlbum" src={images[0].url} alt={id} />
         <h1>{name}</h1>

@@ -1,0 +1,29 @@
+.YourMusic-songItems {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  background-color: #181818;
+
+  padding-top: 32px;
+  width: 90vw;
+  padding-left: 20px;
+  color: white;
+  overflow-y: scroll;
+}
+.YourMusic-song-card {
+  display: flex;
+  font-size: 10px;
+  margin: 15px;
+  cursor: pointer;
+}
+.yourMusic-img {
+  width: 70px;
+  height: 70px;
+  margin-right: 5px;
+}
+@media (max-width: 576px) {
+  .YourMusic-song-card {
+    font-size: 7px;
+  }
+}

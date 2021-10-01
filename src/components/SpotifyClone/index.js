@@ -9,13 +9,13 @@ class SpotifyClone extends Component {
   render() {
     return (
       <div className="bg-cont">
-        <Header />
+        <div className="side-nav-div">
+          <Header />
+        </div>
         <div className="main-container">
-          <div>
-            <EditorPicks />
-            <GenereMoods />
-            <NewRelease />
-          </div>
+          <EditorPicks />
+          <GenereMoods />
+          <NewRelease />
         </div>
       </div>
     )

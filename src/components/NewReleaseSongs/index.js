@@ -6,7 +6,15 @@ import './index.css'
 import Header from '../Header'
 
 class NewReleaseSongs extends Component {
-  state = {playlistSongs: [], songName: '', songImage: '', popularity: ''}
+  state = {
+    playlistSongs: [],
+    songName: '',
+    songImage: '',
+    popularity: '',
+    urlS: '',
+    setSong: false,
+    name: '',
+  }
 
   componentDidMount() {
     this.fetchSongs()
@@ -33,6 +41,7 @@ class NewReleaseSongs extends Component {
         name: each.name,
         popularity: each.popularity,
         duration: each.duration_ms,
+        url: each.preview_url,
       }))
       const updatedSongName = data.name
       const updatedSongImages = data.images[0].url
@@ -56,33 +65,69 @@ class NewReleaseSongs extends Component {
     return `${timeInMin}:${timesecs}`
   }
 
+  onClickSong = (url, name) => {
+    this.setState({urlS: url, setSong: true, name})
+  }
+
+  song = () => {
+    const {urlS, name, songImage} = this.state
+
+    if (urlS !== null) {
+      return (
+        <div className="audio-card">
+          <img src={songImage} alt={name} className="thumbImg" />
+          <div>
+            <h1>{name}</h1>
+          </div>
+          <audio controls src={urlS} autoPlay className="audio">
+            <track default kind="captions" srcLang="en" />
+            Your browser does not support the
+            <code>audio</code> element.
+          </audio>
+        </div>
+      )
+    }
+    return <p className="audio-card">NotFound</p>
+  }
+
   playListSongDetails = each => {
-    const {name, duration} = each
+    const {name, duration, url} = each
 
     const {popularity} = this.state
     return (
-      <div className="songTitle-card">
-        <p className="song-font">{name}</p>
+      <div className="songDetails-card " key={name}>
+        <p
+          className="song-font song-cursor"
+          onClick={() => this.onClickSong(url, name)}
+        >
+          {name}
+        </p>
 
         <p className="song-font">{this.songDuration(duration)}</p>
-        <p className="song-font">{popularity}</p>
+        <p className="song-font song-Element-display">{popularity}</p>
       </div>
     )
   }
 
-  render() {
-    const {playlistSongs, songName, songImage} = this.state
+  onClickBack = () => {
+    const {history} = this.props
+    history.push('/')
+  }
 
-    console.log(playlistSongs)
+  render() {
+    const {playlistSongs, songName, songImage, setSong} = this.state
+
     return (
       <div className="bg-cont">
         <Header />
 
         <div className="editor-song-profile-container">
-          <button type="button" className="backCard">
-            <p>
-              <BiArrowBack /> Back
-            </p>
+          <button
+            className="button-back"
+            type="button"
+            onClick={this.onClickBack}
+          >
+            <BiArrowBack /> Back
           </button>
           <div className="edit-song-card">
             <img src={songImage} alt={songName} className="songImg" />
@@ -99,6 +144,8 @@ class NewReleaseSongs extends Component {
           </div>
           <hr className="hr-line" />
           {playlistSongs.map(each => this.playListSongDetails(each))}
+
+          {setSong && this.song()}
         </div>
       </div>
     )

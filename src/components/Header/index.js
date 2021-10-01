@@ -14,25 +14,30 @@ const Header = () => (
     />
     <div className=" icon-cont">
       <div className="icons">
-        <Link to="/profile">
+        <Link to="/profile" className="link-color">
           <BsFillPersonFill />
           <p>Profile</p>
         </Link>
       </div>
 
       <div className="icons">
-        <Link to="/">
+        <Link to="/" className="link-color">
           <AiOutlineHome />
           <p>Home</p>
         </Link>
       </div>
       <div className="icons">
-        <ImMusic />
-        <p>Your Music</p>
+        <Link to="/yourmusic" className="link-color">
+          <ImMusic />
+          <p>Your Music</p>
+        </Link>
       </div>
+
       <div className="icons">
-        <MdQueueMusic />
-        <p>Playlists</p>
+        <Link to="/playList" className="link-color">
+          <MdQueueMusic />
+          <p>Playlists</p>
+        </Link>
       </div>
     </div>
   </nav>

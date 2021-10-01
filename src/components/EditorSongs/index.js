@@ -6,7 +6,14 @@ import './index.css'
 import Header from '../Header'
 
 class EditorSongs extends Component {
-  state = {playlistSongs: [], songName: '', songImage: ''}
+  state = {
+    playlistSongs: [],
+    songName: '',
+    songImage: '',
+    urlS: '',
+    setSong: false,
+    name: '',
+  }
 
   componentDidMount() {
     this.fetchSongs()
@@ -27,6 +34,7 @@ class EditorSongs extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
+
       const updatedSong = data.tracks.items.map(each => ({
         id: each.track.id,
         name: each.track.name,
@@ -34,6 +42,7 @@ class EditorSongs extends Component {
         addTime: each.added_at,
         duration: each.track.duration_ms,
         artist: each.track.artists[0].name,
+        url: each.track.preview_url,
       }))
       const updatedSongName = data.name
       const updatedSongImages = data.images[0].url
@@ -68,34 +77,76 @@ class EditorSongs extends Component {
     return `${days} Days ago`
   }
 
+  onClickPlaySong = (url, name) => {
+    this.setState({urlS: url, setSong: true, name})
+  }
+
+  song = () => {
+    const {urlS, name, songImage} = this.state
+
+    if (urlS !== null) {
+      return (
+        <div className="audio-card">
+          <img src={songImage} alt={name} className="thumbImg" />
+          <div>
+            <h1>{name}</h1>
+          </div>
+          <audio controls src={urlS} autoPlay className="audio">
+            <track default kind="captions" srcLang="en" />
+            Your browser does not support the
+            <code>audio</code> element.
+          </audio>
+        </div>
+      )
+    }
+    return <h1 className="audio-card">NotFound</h1>
+  }
+
   playListSongDetails = each => {
-    const {name, albumName, addTime, duration, artist} = each
+    const {name, albumName, addTime, duration, artist, url, id} = each
 
     return (
-      <div className="songTitle-card">
-        <p className="song-font">{name}</p>
-        <p className="song-font">{albumName}</p>
+      <div className="songDetails-card" key={id}>
+        <div>
+          <h1
+            className="song-font song-cursor"
+            onClick={() => this.onClickPlaySong(url, name)}
+          >
+            {name}
+          </h1>
+          <p className="song-font song-artist-display">{artist}</p>
+        </div>
+        <p className="song-font song-Element-display">{albumName}</p>
         <p className="song-font">{this.songDuration(duration)}</p>
-        <p className="song-font">{artist}</p>
-        <p className="song-font">{this.monthsago(addTime)}</p>
+        <p className="song-font song-Element-display">{artist}</p>
+        <p className="song-font song-Element-display">
+          {this.monthsago(addTime)}
+        </p>
       </div>
     )
   }
 
-  render() {
-    const {playlistSongs, songName, songImage} = this.state
+  onClickBack = () => {
+    const {history} = this.props
+    history.push('/')
+  }
 
-    console.log(playlistSongs)
+  render() {
+    const {playlistSongs, songName, songImage, setSong} = this.state
+
     return (
       <div className="bg-cont">
         <Header />
 
         <div className="editor-song-profile-container">
-          <button type="button" className="backCard">
-            <p>
-              <BiArrowBack /> Back
-            </p>
+          <button
+            className="button-back"
+            type="button"
+            onClick={this.onClickBack}
+          >
+            <BiArrowBack /> Back
           </button>
+
           <div className="edit-song-card">
             <img src={songImage} alt={songName} className="songImg" />
             <div className="editor-heading-card">
@@ -112,6 +163,8 @@ class EditorSongs extends Component {
           </div>
           <hr className="hr-line" />
           {playlistSongs.map(each => this.playListSongDetails(each))}
+
+          {setSong && this.song()}
         </div>
       </div>
     )

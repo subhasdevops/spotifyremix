@@ -11,7 +11,7 @@ class GenereMoods extends Component {
   }
 
   genereMood = async () => {
-    const token = localStorage.getItem('pa_token', '')
+    const token = localStorage.getItem('pa_token')
 
     const options = {
       headers: {

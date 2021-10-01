@@ -4,16 +4,11 @@
   background-color: #181818;
 
   padding-top: 32px;
-  width: 90vw;
+  flex-grow: 1;
   padding-left: 20px;
   color: white;
 }
-.backCard {
-  background-color: #181818;
-  border: 0px;
-  color: white;
-  text-align: left;
-}
+
 .edit-song-card {
   display: flex;
   justify-content: flex-start;
@@ -36,6 +31,13 @@
   margin-right: 10px;
   padding: 10px;
 }
+.songDetails-card {
+  display: flex;
+  justify-content: space-between;
+
+  margin-right: 10px;
+  padding: 10px;
+}
 .hr-line {
   width: 87vw;
 }
@@ -44,4 +46,66 @@
   max-width: 100px;
   font-size: 10px;
   text-align: left;
+}
+.audio-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  font-size: 8px;
+  background-color: #181818;
+  padding: 10px;
+  width: 85vw;
+}
+.audio {
+  width: 65vw;
+  color: red;
+}
+.song-cursor {
+  cursor: pointer;
+}
+
+.thumbImg {
+  width: 35px;
+  margin-right: 5px;
+}
+.song-artist-display {
+  display: none;
+}
+.button-back {
+  background-color: transparent;
+  color: white;
+  margin-bottom: 10px;
+  border: 0px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: left;
+}
+
+@media (max-width: 576px) {
+  .edit-song-card {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  .songImg {
+    width: 140px;
+  }
+  .songTitle-card {
+    display: none;
+  }
+  .song-Element-display {
+    display: none;
+  }
+  .song-artist-display {
+    display: flex;
+  }
+  .hr-line {
+    display: none;
+  }
+  .song-artist-display {
+    font-size: 7px;
+  }
 }
